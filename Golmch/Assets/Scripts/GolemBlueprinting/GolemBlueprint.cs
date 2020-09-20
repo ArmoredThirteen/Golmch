@@ -28,11 +28,25 @@ namespace ATE
 
         public List<AddedGear> addedGears;
 		
-        public float Weight
+        public float FrameWeight
         {
             get
             {
+                if (medium == null || frame == null)
+                    return 0;
                 return medium.density * frame.volume;
+            }
+        }
+
+        public float TotalWeight
+        {
+            get
+            {
+                float totalWeight = FrameWeight;
+                for (int i = 0; i < addedGears.Count; i++)
+                    if (addedGears[i].gear != null)
+                        totalWeight += addedGears[i].gear.weight;
+                return totalWeight;
             }
         }
 
