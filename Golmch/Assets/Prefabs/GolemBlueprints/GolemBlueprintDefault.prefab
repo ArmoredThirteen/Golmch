@@ -48,3 +48,5 @@ MonoBehaviour:
   addedGears:
   - compartmentIndex: 0
     gear: {fileID: 11400000, guid: 645ee6e8a08c9f64fa62b9a804ee57c0, type: 2}
+  - compartmentIndex: 1
+    gear: {fileID: 11400000, guid: 067ff3a18bb70724cb1c4d3ff9646fa8, type: 2}
