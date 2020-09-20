@@ -52,6 +52,7 @@ namespace ATE
             if (!showMediumValues)
                 return;
 
+            // Shows internal values in the chosen medium, not editable
             string[] splitStr = targ.medium.ToString ().Split ('\n');
             for (int i = 0; i < splitStr.Length; i++)
                 EditorGUILayout.LabelField ("    " + splitStr[i]);
@@ -65,6 +66,7 @@ namespace ATE
             if (!showFrameValues)
                 return;
 
+            // Shows internal values in the chosen frame, not editable
             string[] splitStr = targ.frame.ToString ().Split ('\n');
             for (int i = 0; i < splitStr.Length; i++)
                 EditorGUILayout.LabelField ("    " + splitStr[i]);
@@ -73,6 +75,7 @@ namespace ATE
 
         private void OnDisplayOrphanGears()
         {
+            // Gather any orphans
             int compCount = targ.frame.compartments.Length;
             List<GolemBlueprint.AddedGear> orphans = targ.addedGears.FindAll (gear => gear.compartmentIndex >= compCount);
             if (orphans.Count <= 0)
@@ -116,6 +119,7 @@ namespace ATE
             {
                 GUILayout.BeginVertical ("Compartment " + i + ", " + targ.frame.compartments[i].displayName, "window");
 
+                // Create new gear, display at top so it stays in place when pressing multiple times
                 if (GUILayout.Button ("Add New Gear"))
                 {
                     targ.addedGears.Add (new GolemBlueprint.AddedGear (i));
@@ -125,6 +129,7 @@ namespace ATE
 
                 EditorGUILayout.Space ();
 
+                // Each gear belonging to this compartment
                 for (int k = 0; k < targ.addedGears.Count; k++)
                 {
                     if (targ.addedGears[k].compartmentIndex != i)
@@ -152,20 +157,21 @@ namespace ATE
             string windowName = "Gear" + (gear.gear == null ? "" : ": " + gear.gear.displayName);
             GUILayout.BeginVertical (windowName, "window");
 
-            //gear.compartmentIndex = EditorGUILayout.IntField ("Compartment Index", gear.compartmentIndex);
-            //gear.gear = EditorGUILayout.ObjectField ("Gear Settings", gear.gear);
-
+            // Get the serialized addedGear
             SerializedProperty serializedList = serializedObject.FindProperty("addedGears");
             SerializedProperty serialized = serializedList.GetArrayElementAtIndex (addedIndex);
 
+            // Get the serialized properties within addedGear
             SerializedProperty compartmentIndex = serialized.FindPropertyRelative ("compartmentIndex");
             SerializedProperty gearSettings = serialized.FindPropertyRelative ("gear");
 
+            // Make the fields for the properties
             EditorGUILayout.PropertyField (compartmentIndex, new GUIContent ("Compartment Index"), true);
             EditorGUILayout.PropertyField (gearSettings, new GUIContent ("Gear Settings"), true);
 
+            // Ensure serialization happens
             serializedObject.ApplyModifiedProperties ();
-
+            
             if (GUILayout.Button ("Remove"))
             {
                 targ.addedGears.RemoveAt (addedIndex);
