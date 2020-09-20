@@ -26,7 +26,7 @@ namespace ATE
         public MediumSettings medium;
         public FrameSettings frame;
 
-        public AddedGear[] addedGears;
+        public List<AddedGear> addedGears;
 		
         public float Weight
         {

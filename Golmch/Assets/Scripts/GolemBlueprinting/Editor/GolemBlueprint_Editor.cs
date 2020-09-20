@@ -57,9 +57,70 @@ namespace ATE
 
         private void OnDisplayAddedGears()
         {
-            SerializedProperty property = serializedObject.FindProperty("addedGears");
-            EditorGUILayout.PropertyField(property, new GUIContent("Added Gears"), true);
-            serializedObject.ApplyModifiedProperties();
+            // Find all the orphans
+            List<GolemBlueprint.AddedGear> orphans = targ.addedGears.FindAll
+                (gear => gear.compartmentIndex >= targ.frame.compartments.Length);
+
+            if (orphans.Count > 0)
+            {
+                EditorGUILayout.HelpBox ("Gear(s) with broken compartment indexes!", MessageType.Error);
+                if (GUILayout.Button ("Remove all"))
+                {
+                    targ.addedGears.RemoveAll
+                        (gear => gear.compartmentIndex >= targ.frame.compartments.Length);
+                }
+                /*else
+                {
+                    for (int i = 0; i < orphans.Count; i++)
+                        DisplayAddedGear (i);
+                }*/
+            }
+
+            for (int i = 0; i < targ.frame.compartments.Length; i++)
+            {
+                List<GolemBlueprint.AddedGear> gears = targ.addedGears.FindAll
+                    (gear => gear.compartmentIndex == i);
+
+                EditorGUILayout.LabelField ("Compartment " + i + ": " + targ.frame.compartments[i].displayName);
+                EditorGUI.indentLevel++;
+
+                if (GUILayout.Button ("Add New"))
+                {
+                    targ.addedGears.Add (new GolemBlueprint.AddedGear (i));
+                    EditorUtility.SetDirty (targ);
+                    return;
+                }
+
+                DisplayCompartmentGear (i);
+                EditorGUILayout.Space ();
+                EditorGUI.indentLevel--;
+            }
+        }
+
+        private void DisplayCompartmentGear(int compartmentIndex)
+        {
+            SerializedProperty serializedList = serializedObject.FindProperty("addedGears");
+            int labelIndex = 0;
+
+            for (int i = 0; i < targ.addedGears.Count; i++)
+            {
+                if (targ.addedGears[i].compartmentIndex != compartmentIndex)
+                    continue;
+
+                SerializedProperty serialized = serializedList.GetArrayElementAtIndex (i);
+                EditorGUILayout.PropertyField (serialized, new GUIContent ("Gear " + labelIndex), true);
+                serializedObject.ApplyModifiedProperties ();
+
+                if (GUILayout.Button ("Remove"))
+                {
+                    targ.addedGears.RemoveAt (i);
+                    EditorUtility.SetDirty (targ);
+                    return;
+                }
+
+                EditorGUILayout.Space ();
+                labelIndex++;
+            }
         }
 		
 	}
