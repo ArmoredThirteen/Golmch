@@ -11,5 +11,17 @@ namespace ATE
 		public CompartmentType compartmentType = CompartmentType.Cavity;
 
         public int slots = 1;
+
+
+        public override string ToString()
+        {
+            string str = "";
+
+            str += "Display Name: " + displayName;
+            str += "\nCompartment Type: " + compartmentType;
+            str += "\nSlots: " + slots;
+
+            return str;
+        }
 	}
 }
