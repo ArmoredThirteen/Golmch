@@ -43,5 +43,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8628c5f7b5430743b9fde55fb3f18d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frame: {fileID: 11400000, guid: 21abab93b4d58174688c5b36b84a8268, type: 2}
   medium: {fileID: 11400000, guid: 3c6546fabac23514fa8561d8bfae9d36, type: 2}
+  frame: {fileID: 11400000, guid: 21abab93b4d58174688c5b36b84a8268, type: 2}
+  addedGears:
+  - compartmentIndex: 0
+    gear: {fileID: 11400000, guid: 645ee6e8a08c9f64fa62b9a804ee57c0, type: 2}
+  - compartmentIndex: 0
+    gear: {fileID: 0}
+  - compartmentIndex: 0
+    gear: {fileID: 0}
