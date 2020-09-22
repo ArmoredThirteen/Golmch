@@ -8,7 +8,12 @@ namespace ATE
 	public class FrameSettings : ScriptableObject
 	{
         public string displayName = "DEFAULT";
+
         public float volume = 10;
+        public float volumePerArmor = 0.5f;
+
+        public float manaPerMovePerWeight = 0.1f;
+
         public CompartmentSettings[] compartments;
 
 
@@ -18,6 +23,8 @@ namespace ATE
 
             str += "Display Name: " + displayName;
             str += "\nVolume: " + volume;
+            str += "\nVolume per Armor: " + volumePerArmor;
+            str += "\nMana per Move per Weight: " + manaPerMovePerWeight;
 
             for (int i = 0; i < compartments.Length; i++)
             {

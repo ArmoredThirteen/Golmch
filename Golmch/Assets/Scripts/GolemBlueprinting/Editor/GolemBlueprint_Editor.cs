@@ -47,7 +47,7 @@ namespace ATE
 
         private void OnDisplayMedium()
         {
-            targ.medium = (MediumSettings)EditorGUILayout.ObjectField("Medium:", targ.medium, typeof(MediumSettings), false);
+            targ.medium = (MediumSettings)EditorGUILayout.ObjectField("Medium", targ.medium, typeof(MediumSettings), false);
 
             showMediumValues = EditorGUILayout.Foldout (showMediumValues, "Show Medium");
             if (!showMediumValues)
@@ -61,7 +61,8 @@ namespace ATE
 
         private void OnDisplayFrame()
         {
-            targ.frame = (FrameSettings)EditorGUILayout.ObjectField("Frame:", targ.frame, typeof(FrameSettings), false);
+            targ.frame = (FrameSettings)EditorGUILayout.ObjectField("Frame", targ.frame, typeof(FrameSettings), false);
+            targ.armorCount = EditorGUILayout.IntField ("Armor Count", targ.armorCount);
 
             showFrameValues = EditorGUILayout.Foldout(showFrameValues, "Show Frame");
             if (!showFrameValues)
@@ -203,9 +204,14 @@ namespace ATE
             showReadout = EditorGUILayout.Foldout (showReadout, "Show Readout");
             if (!showReadout)
                 return;
+            
+            GUILayout.BeginVertical ("Total Weight: " + targ.TotalWeight, "window");
+            EditorGUILayout.LabelField ("Frame: " + targ.FrameWeight);
+            EditorGUILayout.LabelField ("Armor: " + targ.ArmorWeight);
+            EditorGUILayout.LabelField ("Gears: " + targ.GearsWeight);
+            GUILayout.EndVertical ();
 
-            EditorGUILayout.LabelField ("Frame Weight: " + targ.FrameWeight);
-            EditorGUILayout.LabelField ("Total Weight: " + targ.TotalWeight);
+            EditorGUILayout.LabelField ("Mana per Move: " + targ.ManaPerMove);
         }
 		
 	}

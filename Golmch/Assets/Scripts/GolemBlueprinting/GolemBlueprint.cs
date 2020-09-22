@@ -26,27 +26,61 @@ namespace ATE
         public MediumSettings medium;
         public FrameSettings frame;
 
+        public int armorCount = 10;
+
         public List<AddedGear> addedGears;
 		
+
+        public float TotalWeight
+        {
+            get
+            {
+                return FrameWeight + ArmorWeight + GearsWeight;
+            }
+        }
+
         public float FrameWeight
         {
             get
             {
                 if (medium == null || frame == null)
                     return 0;
-                return medium.density * frame.volume;
+                return frame.volume * medium.density;
             }
         }
 
-        public float TotalWeight
+        public float ArmorWeight
         {
             get
             {
-                float totalWeight = FrameWeight;
+                if (medium == null || frame == null)
+                    return 0;
+                return (armorCount * frame.volumePerArmor) * medium.density;
+            }
+        }
+
+        public float GearsWeight
+        {
+            get
+            {
+                float gearsWeight = 0;
+
                 for (int i = 0; i < addedGears.Count; i++)
                     if (addedGears[i].gear != null)
-                        totalWeight += addedGears[i].gear.weight;
-                return totalWeight;
+                        gearsWeight += addedGears[i].gear.weight;
+
+                return gearsWeight;
+            }
+        }
+
+
+        public float ManaPerMove
+        {
+            get
+            {
+                if (frame == null)
+                    return 0;
+                return frame.manaPerMovePerWeight * TotalWeight;
             }
         }
 
