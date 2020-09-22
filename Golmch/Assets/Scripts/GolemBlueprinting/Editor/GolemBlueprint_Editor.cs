@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -118,6 +119,18 @@ namespace ATE
             for (int i = 0; i < targ.frame.compartments.Length; i++)
             {
                 GUILayout.BeginVertical ("Compartment " + i + ", " + targ.frame.compartments[i].displayName, "window");
+
+                // Available and used slots
+                int totalSlots = targ.frame.compartments[i].slots;
+                int usedSlots = targ.addedGears.FindAll (gear => gear.compartmentIndex == i).Sum (gear => gear.gear == null ? 0 : gear.gear.slots);
+
+                // Turn text red if using too many slots
+                GUIStyle slotsLabelStyle = new GUIStyle(EditorStyles.label);
+                if (usedSlots > totalSlots)
+                    slotsLabelStyle.normal.textColor = Color.red;
+                
+                EditorGUILayout.LabelField ("Slots, total/used:  " + totalSlots + " / " + usedSlots, slotsLabelStyle);
+                EditorGUILayout.Space ();
 
                 // Create new gear, display at top so it stays in place when pressing multiple times
                 if (GUILayout.Button ("Add New Gear"))
