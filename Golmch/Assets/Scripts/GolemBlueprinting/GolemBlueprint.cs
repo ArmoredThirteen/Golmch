@@ -10,26 +10,13 @@ namespace ATE
      */
 	public class GolemBlueprint : MonoBehaviour
 	{
-        [System.Serializable]
-        public class AddedGear
-        {
-            public int compartmentIndex;
-            public GearSettings gear;
-
-            public AddedGear(int theCompIndex)
-            {
-                compartmentIndex = theCompIndex;
-            }
-        }
-
-        
         public MediumSettings medium;
         public FrameSettings frame;
 
         public int armorCount = 10;
 
-        public List<AddedGear> addedGears;
-		
+        public List<CompartmentBlueprint> compartments;
+
 
         public float TotalWeight
         {
@@ -63,12 +50,14 @@ namespace ATE
         {
             get
             {
+                if (compartments == null)
+                    return 0;
+
                 float gearsWeight = 0;
 
-                for (int i = 0; i < addedGears.Count; i++)
-                    if (addedGears[i].gear != null)
-                        gearsWeight += addedGears[i].gear.weight;
-
+                for (int i = 0; i < compartments.Count; i++)
+                    gearsWeight += compartments[i].GearsWeight;
+                
                 return gearsWeight;
             }
         }

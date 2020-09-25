@@ -16,11 +16,13 @@ namespace ATE
         private static bool showCompartments = true;
         private static bool showReadout = true;
 
+        private static bool confirmReloadCompartments = false;
+
 
         public override void OnInspectorGUI()
         {
-            targ = (GolemBlueprint)this.target;
-            
+            targ = (GolemBlueprint)target;
+
             GUILayout.BeginVertical ("Medium", "window");
             OnDisplayMedium ();
             GUILayout.EndVertical ();
@@ -31,9 +33,6 @@ namespace ATE
             GUILayout.EndVertical ();
             EditorGUILayout.Space ();
 
-            OnDisplayOrphanGears ();
-            EditorGUILayout.Space ();
-
             GUILayout.BeginVertical ("Compartments", "window");
             OnDisplayCompartments ();
             GUILayout.EndVertical ();
@@ -42,6 +41,9 @@ namespace ATE
             GUILayout.BeginVertical ("Readout", "window");
             OnDisplayReadout ();
             GUILayout.EndVertical ();
+
+            if (GUI.changed)
+                EditorUtility.SetDirty (targ);
         }
 
 
@@ -64,6 +66,21 @@ namespace ATE
             targ.frame = (FrameSettings)EditorGUILayout.ObjectField("Frame", targ.frame, typeof(FrameSettings), false);
             targ.armorCount = EditorGUILayout.IntField ("Armor Count", targ.armorCount);
 
+            if (!confirmReloadCompartments)
+            {
+                if (GUILayout.Button ("Reload Compartments"))
+                    confirmReloadCompartments = true;
+            }
+            else
+            {
+                if (GUILayout.Button ("Definitely Reload?"))
+                {
+                    ReloadCompartments ();
+                    confirmReloadCompartments = false;
+                }
+                EditorGUILayout.HelpBox ("Reload will wipe all compartment and gear settings!", MessageType.Warning);
+            }
+
             showFrameValues = EditorGUILayout.Foldout(showFrameValues, "Show Frame");
             if (!showFrameValues)
                 return;
@@ -74,38 +91,15 @@ namespace ATE
                 EditorGUILayout.LabelField ("    " + splitStr[i]);
         }
 
-
-        private void OnDisplayOrphanGears()
+        private void ReloadCompartments()
         {
-            // Gather any orphans
-            int compCount = targ.frame.compartments.Length;
-            List<GolemBlueprint.AddedGear> orphans = targ.addedGears.FindAll (gear => gear.compartmentIndex >= compCount);
-            if (orphans.Count <= 0)
-                return;
+            targ.compartments.Clear ();
 
-            EditorGUILayout.HelpBox ("Gear(s) with broken compartment indexes!", MessageType.Error);
-            GUILayout.BeginVertical ("window");
-
-            // Remove all orphans
-            if (GUILayout.Button ("Remove all"))
+            for (int i = 0; i < targ.frame.compartments.Length; i++)
             {
-                targ.addedGears.RemoveAll (gear => gear.compartmentIndex >= compCount);
-                EditorUtility.SetDirty (targ);
-                return;
+                CompartmentBlueprint newPrint = new CompartmentBlueprint (targ.frame.compartments[i]);
+                targ.compartments.Add (newPrint);
             }
-
-            EditorGUILayout.Space ();
-
-            // Display and remove each orphan
-            for (int i = 0; i < targ.addedGears.Count; i++)
-            {
-                if (targ.addedGears[i].compartmentIndex < compCount)
-                    continue;
-                if (DisplayGear (i))
-                    return;
-            }
-
-            GUILayout.EndVertical ();
         }
 
 
@@ -115,43 +109,32 @@ namespace ATE
             if (!showCompartments)
                 return;
 
-            //TODO: Double for loop, find better solution
-            //      Currently required due to addedGears index needing to be known for removal operation
-            for (int i = 0; i < targ.frame.compartments.Length; i++)
-            {
-                GUILayout.BeginVertical ("Compartment " + i + ", " + targ.frame.compartments[i].displayName, "window");
+            if (targ.compartments == null)
+                return;
 
-                // Available and used slots
-                int totalSlots = targ.frame.compartments[i].slots;
-                int usedSlots = targ.addedGears.FindAll (gear => gear.compartmentIndex == i).Sum (gear => gear.gear == null ? 0 : gear.gear.slots);
+            for (int compInd = 0; compInd < targ.compartments.Count; compInd++)
+            {
+                CompartmentBlueprint currComp = targ.compartments[compInd];
+                GUILayout.BeginVertical ("Compartment " + compInd + ", " + currComp.settings.displayName, "window");
+
+                int totalSlots = currComp.TotalSlots;
+                int usedSlots = currComp.UsedSlots;
 
                 // Turn text red if using too many slots
                 GUIStyle slotsLabelStyle = new GUIStyle(EditorStyles.label);
                 if (usedSlots > totalSlots)
                     slotsLabelStyle.normal.textColor = Color.red;
                 
-                EditorGUILayout.LabelField ("Slots, total/used:  " + totalSlots + " / " + usedSlots, slotsLabelStyle);
+                EditorGUILayout.LabelField ("Slots, used/total:  " + usedSlots + " / " + totalSlots, slotsLabelStyle);
                 EditorGUILayout.Space ();
 
-                // Create new gear, display at top so it stays in place when pressing multiple times
-                if (GUILayout.Button ("Add New Gear"))
-                {
-                    targ.addedGears.Add (new GolemBlueprint.AddedGear (i));
-                    EditorUtility.SetDirty (targ);
-                    return;
-                }
+                if (GUILayout.Button ("Add Gear"))
+                    currComp.gears.Add (null);
 
                 EditorGUILayout.Space ();
 
-                // Each gear belonging to this compartment
-                for (int k = 0; k < targ.addedGears.Count; k++)
-                {
-                    if (targ.addedGears[k].compartmentIndex != i)
-                        continue;
-
-                    if (DisplayGear (k))
-                        return;
-                }
+                for (int gearInd = 0; gearInd < currComp.gears.Count; gearInd++)
+                    DisplayGear (currComp.gears, gearInd);
 
                 GUILayout.EndVertical ();
                 EditorGUILayout.Space ();
@@ -159,43 +142,18 @@ namespace ATE
             }
         }
 
-        /*
-         * Shows gear at given index within addedGears.
-         * If remove button was clicked, deletes the gear and returns true.
-         */
-        private bool DisplayGear(int addedIndex)
+        private void DisplayGear(List<GearSettings> gears, int index)
         {
-            GolemBlueprint.AddedGear gear = targ.addedGears[addedIndex];
-            bool removePressed = false;
-
-            string windowName = "Gear" + (gear.gear == null ? "" : ": " + gear.gear.displayName);
+            string windowName = "Gear" + (gears[index] == null ? "" : ": " + gears[index].displayName);
             GUILayout.BeginVertical (windowName, "window");
 
-            // Get the serialized addedGear
-            SerializedProperty serializedList = serializedObject.FindProperty("addedGears");
-            SerializedProperty serialized = serializedList.GetArrayElementAtIndex (addedIndex);
+            gears[index] = (GearSettings)EditorGUILayout.ObjectField("Gear Settings", gears[index], typeof(GearSettings), false);
 
-            // Get the serialized properties within addedGear
-            SerializedProperty compartmentIndex = serialized.FindPropertyRelative ("compartmentIndex");
-            SerializedProperty gearSettings = serialized.FindPropertyRelative ("gear");
-
-            // Make the fields for the properties
-            EditorGUILayout.PropertyField (compartmentIndex, new GUIContent ("Compartment Index"), true);
-            EditorGUILayout.PropertyField (gearSettings, new GUIContent ("Gear Settings"), true);
-
-            // Ensure serialization happens
-            serializedObject.ApplyModifiedProperties ();
-            
             if (GUILayout.Button ("Remove"))
-            {
-                targ.addedGears.RemoveAt (addedIndex);
-                EditorUtility.SetDirty (targ);
-                removePressed = true;
-            }
+                gears.RemoveAt (index);
 
             GUILayout.EndVertical ();
             EditorGUILayout.Space ();
-            return removePressed;
         }
 
 

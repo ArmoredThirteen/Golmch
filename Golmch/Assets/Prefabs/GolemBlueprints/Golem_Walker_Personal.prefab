@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 733967561420670825}
   - component: {fileID: 1224353876060119098}
   m_Layer: 0
-  m_Name: GolemBlueprintDefault
+  m_Name: Golem_Walker_Personal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,8 +45,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   medium: {fileID: 11400000, guid: 3c6546fabac23514fa8561d8bfae9d36, type: 2}
   frame: {fileID: 11400000, guid: 21abab93b4d58174688c5b36b84a8268, type: 2}
-  addedGears:
-  - compartmentIndex: 1
-    gear: {fileID: 11400000, guid: 067ff3a18bb70724cb1c4d3ff9646fa8, type: 2}
-  - compartmentIndex: 0
-    gear: {fileID: 11400000, guid: 645ee6e8a08c9f64fa62b9a804ee57c0, type: 2}
+  armorCount: 10
+  compartments:
+  - settings: {fileID: 11400000, guid: ef9fa04de8fe0ca4ebd4c31c535337c0, type: 2}
+    gears:
+    - {fileID: 11400000, guid: 645ee6e8a08c9f64fa62b9a804ee57c0, type: 2}
+  - settings: {fileID: 11400000, guid: 916943fa59b66fa4ea71b8f08b272e56, type: 2}
+    gears:
+    - {fileID: 11400000, guid: 067ff3a18bb70724cb1c4d3ff9646fa8, type: 2}
+  - settings: {fileID: 11400000, guid: 916943fa59b66fa4ea71b8f08b272e56, type: 2}
+    gears: []
+  - settings: {fileID: 11400000, guid: 3ef55aef3769d6442aeafa3efd9bc0e5, type: 2}
+    gears: []
+  - settings: {fileID: 11400000, guid: 3ef55aef3769d6442aeafa3efd9bc0e5, type: 2}
+    gears: []

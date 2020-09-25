@@ -46,8 +46,16 @@ MonoBehaviour:
   medium: {fileID: 11400000, guid: 3c6546fabac23514fa8561d8bfae9d36, type: 2}
   frame: {fileID: 11400000, guid: 89b650dec73e4f242a4a9da0bcef83e9, type: 2}
   armorCount: 10
-  addedGears:
-  - compartmentIndex: 0
-    gear: {fileID: 11400000, guid: 645ee6e8a08c9f64fa62b9a804ee57c0, type: 2}
-  - compartmentIndex: 0
-    gear: {fileID: 11400000, guid: 067ff3a18bb70724cb1c4d3ff9646fa8, type: 2}
+  compartments:
+  - settings: {fileID: 11400000, guid: 53656fc46948afc408eb5ee1b5292812, type: 2}
+    gears:
+    - {fileID: 11400000, guid: 645ee6e8a08c9f64fa62b9a804ee57c0, type: 2}
+    - {fileID: 11400000, guid: 067ff3a18bb70724cb1c4d3ff9646fa8, type: 2}
+  - settings: {fileID: 11400000, guid: 3ef55aef3769d6442aeafa3efd9bc0e5, type: 2}
+    gears: []
+  - settings: {fileID: 11400000, guid: 3ef55aef3769d6442aeafa3efd9bc0e5, type: 2}
+    gears: []
+  - settings: {fileID: 11400000, guid: 3ef55aef3769d6442aeafa3efd9bc0e5, type: 2}
+    gears: []
+  - settings: {fileID: 11400000, guid: 3ef55aef3769d6442aeafa3efd9bc0e5, type: 2}
+    gears: []
