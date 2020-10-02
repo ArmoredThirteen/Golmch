@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ATE
 {
-    [CreateAssetMenu (fileName = "Medium_", menuName = "Golems/Medium", order = 150)]
+    [CreateAssetMenu (fileName = "Medium_", menuName = "Golmch/Medium", order = 150)]
     public class MediumSettings : ScriptableObject
     {
         public string displayName = "DEFAULT";

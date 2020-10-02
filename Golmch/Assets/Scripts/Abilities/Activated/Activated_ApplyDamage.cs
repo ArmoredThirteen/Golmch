@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ATE
 {
-    [CreateAssetMenu (fileName = "Activated_ApplyDamage_", menuName = "Golems/Abilities/Activated/ApplyDamage", order = 150)]
+    [CreateAssetMenu (fileName = "Activated_ApplyDamage_", menuName = "Golmch/Abilities/Activated/ApplyDamage", order = 150)]
 	public class Activated_ApplyDamage : Ability_Activated
 	{
         public DamageType type;

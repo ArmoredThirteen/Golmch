@@ -4,15 +4,12 @@ using UnityEngine;
 
 namespace ATE
 {
-    [CreateAssetMenu (fileName = "AbilityModifier_", menuName = "Golems/Abilities/Modifier", order = 150)]
-	public abstract class Ability_Modifier : Ability
+    public abstract class Ability_Modifier : Ability
 	{
-        public int modPriority = 0;
+        // If true, only applies to gears within the same compartment
+        // If false, applies to all gears within the golem
+        public bool compartmentOnly = true;
 
-        /*public virtual void ApplyMod(GameEntity source, params GameEntity[] targets)
-        {
-
-        }*/
-		
+        public List<GearType> allowedGearTypes = new List<GearType> ();
 	}
 }

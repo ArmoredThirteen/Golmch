@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ATE
 {
-    [CreateAssetMenu (fileName = "Compartment_", menuName = "Golems/Compartment", order = 150)]
+    [CreateAssetMenu (fileName = "Compartment_", menuName = "Golmch/Compartment", order = 150)]
 	public class CompartmentSettings : ScriptableObject
 	{
         public string displayName = "DEFAULT";

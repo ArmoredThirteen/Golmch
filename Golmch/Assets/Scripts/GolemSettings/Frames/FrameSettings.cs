@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ATE
 {
-    [CreateAssetMenu (fileName = "Frame_", menuName = "Golems/Frame", order = 150)]
+    [CreateAssetMenu (fileName = "Frame_", menuName = "Golmch/Frame", order = 150)]
 	public class FrameSettings : ScriptableObject
 	{
         public string displayName = "DEFAULT";

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ATE
 {
-    [CreateAssetMenu (fileName = "Gear_", menuName = "Golems/Gear", order = 150)]
+    [CreateAssetMenu (fileName = "Gear_", menuName = "Golmch/Gear", order = 150)]
 	public class GearSettings : ScriptableObject
 	{
         public string displayName = "DEFAULT";
