@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Compartment_Arm_Small
   m_EditorClassIdentifier: 
   displayName: Small Arm
-  compartmentType: 1
-  slots: 1
+  compartmentType: 20
+  slots: 2

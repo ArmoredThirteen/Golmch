@@ -4,13 +4,15 @@ using UnityEngine;
 
 namespace ATE
 {
-	public enum CompartmentType
+	public enum DamageType
 	{
-        None = 0,
+		None = 0,
         All = 1,
 
-		Cavity = 10,
-        Arm = 20,
-        Leg = 30,
+        Impact = 100,
+        Stabby = 110,
+
+        Magic = 200,
+        Fire = 210,
 	}
 }

@@ -9,9 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2deb90a8a30516468169d20e9d2af0d, type: 3}
-  m_Name: Compartment_Cavity_Small
+  m_Script: {fileID: 11500000, guid: 6468f3457c1a6c4409eb112a2c55d0da, type: 3}
+  m_Name: Activated_ApplyDamage_Stab
   m_EditorClassIdentifier: 
-  displayName: Small Cavity
-  compartmentType: 10
-  slots: 4
+  displayName: Stab
+  targetingType: 10
+  maxTargetDistance: 1
+  areaType: 0
+  type: 110
+  minAmount: 2
+  maxAmount: 5

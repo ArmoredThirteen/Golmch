@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Gear_SpellCannon
   m_EditorClassIdentifier: 
   displayName: Spell Cannon
+  allowedCompartments: 0a00000014000000
   weight: 10
   slots: 1
+  abilities: []
