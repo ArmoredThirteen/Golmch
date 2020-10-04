@@ -54,7 +54,8 @@ MonoBehaviour:
     gears:
     - {fileID: 11400000, guid: 067ff3a18bb70724cb1c4d3ff9646fa8, type: 2}
   - settings: {fileID: 11400000, guid: 916943fa59b66fa4ea71b8f08b272e56, type: 2}
-    gears: []
+    gears:
+    - {fileID: 11400000, guid: 5f9b6a93c4faf0f4f8e656c5a6051019, type: 2}
   - settings: {fileID: 11400000, guid: 3ef55aef3769d6442aeafa3efd9bc0e5, type: 2}
     gears: []
   - settings: {fileID: 11400000, guid: 3ef55aef3769d6442aeafa3efd9bc0e5, type: 2}

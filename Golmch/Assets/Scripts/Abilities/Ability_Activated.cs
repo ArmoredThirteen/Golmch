@@ -10,6 +10,8 @@ namespace ATE
         public float maxTargetDistance = 1;
         public AreaType areaType = AreaType.Single;
 
+        public float manaCost = 5;
+
         public abstract void Activate(GameEntity source, params GameEntity[] targets);
 		
 	}

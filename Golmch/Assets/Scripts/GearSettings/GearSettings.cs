@@ -9,8 +9,12 @@ namespace ATE
 	{
         public string displayName = "DEFAULT";
 
+        public List<CompartmentType> allowedCompartments = new List<CompartmentType> ();
+
         public float weight = 100;
         public int slots = 1;
+
+        public List<Ability> abilities = new List<Ability> ();
 
 
         public override string ToString()

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Compartment_Cavity_Personal
   m_EditorClassIdentifier: 
   displayName: Personal
-  compartmentType: 0
+  compartmentType: 10
   slots: 2

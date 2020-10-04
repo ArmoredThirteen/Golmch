@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Compartment_Leg_Small
   m_EditorClassIdentifier: 
   displayName: Small Leg
-  compartmentType: 2
-  slots: 0
+  compartmentType: 30
+  slots: 1

@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Gear_Pilot
   m_EditorClassIdentifier: 
   displayName: Human Pilot
+  allowedCompartments: 0a000000
   weight: 70
   slots: 1
+  abilities: []

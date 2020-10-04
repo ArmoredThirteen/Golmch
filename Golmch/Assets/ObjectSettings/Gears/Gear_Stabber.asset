@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2deb90a8a30516468169d20e9d2af0d, type: 3}
-  m_Name: Compartment_Cavity_Small
+  m_Script: {fileID: 11500000, guid: 1ba9d18d6ad4c4c4f88f9dcf4a4127c0, type: 3}
+  m_Name: Gear_Stabber
   m_EditorClassIdentifier: 
-  displayName: Small Cavity
-  compartmentType: 10
-  slots: 4
+  displayName: Stabber
+  allowedCompartments: 140000001e000000
+  weight: 100
+  slots: 1
+  abilities:
+  - {fileID: 11400000, guid: 860823e4069cf384f91a09e3d09889e7, type: 2}
