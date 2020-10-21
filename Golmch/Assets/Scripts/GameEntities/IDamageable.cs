@@ -6,7 +6,10 @@ namespace ATE
 {
 	public interface IDamageable
 	{
-        int Health { get; set; }
+        int MaxHealth { get; }
+        int Health { get; }
+        int Armor { get; }
+
         bool IsDown { get; }
 
         void ApplyDamage(Damage damage);

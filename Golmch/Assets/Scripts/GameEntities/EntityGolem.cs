@@ -6,12 +6,16 @@ namespace ATE
 {
     public class EntityGolem : GameEntity, ITargetable, IDamageable
     {
-        public int Health { get; set; }
+        public List<Ability_Activated> activatedAbilities = new List<Ability_Activated> ();
 
-        public bool IsDown
-        {
-            get => this.Health <= 0;
-        }
+        public int MaxHealth { get; private set; }
+        public int Health { get; private set; }
+        public int Armor { get; private set; }
+
+        public bool IsDown { get => this.Health <= 0; }
+
+        public float TotalWeight { get; private set; }
+        public float ManaPerMove { get; private set; }
 
 
         public void ApplyDamage(Damage damage)
@@ -34,6 +38,22 @@ namespace ATE
         public void OnTarget()
         {
             throw new System.NotImplementedException ();
+        }
+
+
+        public void ApplyBlueprint(GolemBlueprint blueprint)
+        {
+            MaxHealth = 10;
+            Health = 10;
+            Armor = blueprint.armorCount;
+
+            TotalWeight = blueprint.TotalWeight;
+            ManaPerMove = blueprint.ManaPerMove;
+
+            activatedAbilities.Clear ();
+            //TODO: The rest of the owl's ability list
+            // For each activated ability, apply appropriate modifiers
+            // Then take the finished ability and add that to this list
         }
     }
 }

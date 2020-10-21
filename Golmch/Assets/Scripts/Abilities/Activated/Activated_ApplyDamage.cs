@@ -35,5 +35,12 @@ namespace ATE
             }
         }
 
+
+        public void Modify_ApplyDamage_Amount(List<Modifier_ApplyDamage_Amount> mods)
+        {
+            minAmount = ModMath.Result (minAmount, mods);
+            maxAmount = ModMath.Result (maxAmount, mods);
+        }
+
     }
 }
