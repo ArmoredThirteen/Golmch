@@ -9,6 +9,9 @@ namespace ATE
 	{
         public string displayName = "DEFAULT";
 
+        public int startHealth = 50;
+        public int startMana = 100;
+
         public float volume = 10;
         public float volumePerArmor = 0.5f;
 
@@ -21,10 +24,12 @@ namespace ATE
         {
             string str = "";
 
-            str += "Display Name: " + displayName;
-            str += "\nVolume: " + volume;
-            str += "\nVolume per Armor: " + volumePerArmor;
-            str += "\nMana per Move per Weight: " + manaPerMovePerWeight;
+            str += "Display Name: " + displayName
+            + "\nStart Health: " + startHealth
+            + "\nStart Mana: " + startMana
+            + "\nVolume: " + volume
+            + "\nVolume per Armor: " + volumePerArmor
+            + "\nMana per Move per Weight: " + manaPerMovePerWeight;
 
             for (int i = 0; i < compartments.Length; i++)
             {

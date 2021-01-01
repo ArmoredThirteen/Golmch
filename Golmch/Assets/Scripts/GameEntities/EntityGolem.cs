@@ -10,6 +10,8 @@ namespace ATE
 
         public int MaxHealth { get; private set; }
         public int Health { get; private set; }
+        public int MaxMana { get; private set; }
+        public int Mana { get; private set; }
         public int Armor { get; private set; }
 
         public bool IsDown { get => this.Health <= 0; }
@@ -23,6 +25,7 @@ namespace ATE
             if (IsDown)
                 return;
 
+            //TODO: Actual damage math with armor and all that
             Health -= Mathf.CeilToInt (damage.amount);
 
             if (IsDown)
@@ -31,7 +34,7 @@ namespace ATE
 
         public void OnDowned()
         {
-
+            Debug.Log("Golem Downed: " + gameObject.name);
         }
 
 
@@ -43,9 +46,12 @@ namespace ATE
 
         public void ApplyBlueprint(GolemBlueprint blueprint)
         {
-            MaxHealth = 10;
-            Health = 10;
-            Armor = blueprint.armorCount;
+            //TODO: Mana, health, and maybe armor can be modified by gears
+            MaxHealth = blueprint.StartHealth;
+            Health    = blueprint.StartHealth;
+            MaxMana   = blueprint.StartMana;
+            Mana      = blueprint.StartMana;
+            Armor     = blueprint.armorCount;
 
             TotalWeight = blueprint.TotalWeight;
             ManaPerMove = blueprint.ManaPerMove;
