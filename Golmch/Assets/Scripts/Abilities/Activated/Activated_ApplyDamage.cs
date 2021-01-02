@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace ATE
@@ -11,6 +12,18 @@ namespace ATE
         public float minAmount;
         public float maxAmount;
 
+
+        public Activated_ApplyDamage (Activated_ApplyDamage from)
+        {
+            displayName       = from.displayName;
+            targetingType     = from.targetingType;
+            maxTargetDistance = from.maxTargetDistance;
+            areaType  = from.areaType;
+            manaCost  = from.manaCost;
+            type      = from.type;
+            minAmount = from.minAmount;
+            maxAmount = from.maxAmount;
+        }
 
         public Damage RollDamage()
         {
@@ -35,11 +48,17 @@ namespace ATE
             }
         }
 
-
-        public void Modify_ApplyDamage_Amount(List<Modifier_ApplyDamage_Amount> mods)
+        public override Ability_Activated GetModified(List<Ability_Modifier> mods)
         {
-            minAmount = ModMath.Result (minAmount, mods);
-            maxAmount = ModMath.Result (maxAmount, mods);
+            // Get all appropriate mods and cast them
+            List<Modifier_ApplyDamage_Amount> castMods =
+                mods.FindAll(m => m is Modifier_ApplyDamage_Amount)
+                .Cast<Modifier_ApplyDamage_Amount>().ToList();
+
+            Activated_ApplyDamage newAbility = new Activated_ApplyDamage(this);
+            newAbility.minAmount = ModMath.Result(newAbility.minAmount, castMods);
+            newAbility.maxAmount = ModMath.Result(newAbility.maxAmount, castMods);
+            return newAbility;
         }
 
     }
