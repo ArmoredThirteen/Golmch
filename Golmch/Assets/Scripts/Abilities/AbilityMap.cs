@@ -19,6 +19,10 @@ namespace ATE
                 map.Add(new List<List<Ability>>());
                 for (int g = 0; g < blueprint.compartments[c].gears.Count; g++)
                 {
+                    //TODO: This is an issue that shouldn't happen with in-game builder
+                    if (blueprint.compartments[c].gears[g] == null)
+                        continue;
+
                     map[c].Add(new List<Ability>());
                     map[c][g].AddRange(blueprint.compartments[c].gears[g].abilities);
                 }

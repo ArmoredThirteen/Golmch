@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ba9d18d6ad4c4c4f88f9dcf4a4127c0, type: 3}
-  m_Name: Gear_Impactifier
+  m_Script: {fileID: 11500000, guid: f2deb90a8a30516468169d20e9d2af0d, type: 3}
+  m_Name: Compartment_Arm_Medium
   m_EditorClassIdentifier: 
-  displayName: Impactifier
-  allowedCompartments: 01000000
-  weight: 25
-  slots: 1
-  abilities:
-  - {fileID: 11400000, guid: 434ea50d102a8364db92529d4273abc0, type: 2}
+  displayName: Medium Arm
+  compartmentType: 20
+  slots: 4

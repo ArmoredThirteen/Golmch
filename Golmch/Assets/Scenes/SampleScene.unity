@@ -368,8 +368,13 @@ PrefabInstance:
         type: 3}
       propertyPath: blueprint
       value: 
-      objectReference: {fileID: 1224353876060119098, guid: 67e0921f92ec96947ba62c5eedd7bc2b,
+      objectReference: {fileID: 1224353876060119098, guid: 74dc549484a52ac478d0debc66cca669,
         type: 3}
+    - target: {fileID: 4180866395626373149, guid: 73098a189124b0c4889700c2ada861e5,
+        type: 3}
+      propertyPath: printOnStart
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5142834552299475594, guid: 73098a189124b0c4889700c2ada861e5,
         type: 3}
       propertyPath: m_Name

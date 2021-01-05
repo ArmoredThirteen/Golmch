@@ -9,6 +9,8 @@ namespace ATE
         public EntityGolem entity;
         public GolemBlueprint blueprint;
 
+        public bool printOnStart = false;
+
 
         [ContextMenu("Spawn Golem")]
         public override GameEntity SpawnEntity()
@@ -17,6 +19,13 @@ namespace ATE
             printed.ApplyBlueprint(blueprint);
 
             return printed;
+        }
+
+
+        void Start()
+        {
+            if (printOnStart)
+                SpawnEntity();
         }
 
     }
