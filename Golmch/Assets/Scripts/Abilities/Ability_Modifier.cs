@@ -7,7 +7,5 @@ namespace ATE
     public abstract class Ability_Modifier : Ability
 	{
         public ModExtent extent = ModExtent.Compartment;
-
-        public List<GearType> allowedGearTypes = new List<GearType> ();
 	}
 }

@@ -12,7 +12,10 @@ namespace ATE
 
         public float manaCost = 5;
 
+
         public abstract void Activate(GameEntity source, params GameEntity[] targets);
+
+        public abstract Ability_Activated GetModified(List<Ability_Modifier> mods);
 		
 	}
 }

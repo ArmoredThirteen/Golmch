@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 733967561420670825}
   - component: {fileID: 1224353876060119098}
   m_Layer: 0
-  m_Name: Golem_Crawler_Personal
+  m_Name: PersonalCrawler_Default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

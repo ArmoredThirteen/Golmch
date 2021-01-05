@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace ATE
@@ -7,14 +8,14 @@ namespace ATE
     [CreateAssetMenu (fileName = "Activated_ApplyDamage_", menuName = "Golmch/Abilities/Activated/ApplyDamage", order = 150)]
 	public class Activated_ApplyDamage : Ability_Activated
 	{
-        public DamageType type;
+        public DamageType damageType;
         public float minAmount;
         public float maxAmount;
 
 
         public Damage RollDamage()
         {
-            Damage damage = new Damage (type);
+            Damage damage = new Damage (damageType);
             damage.amount = Random.Range (minAmount, maxAmount);
             return damage;
         }
@@ -33,6 +34,21 @@ namespace ATE
                 IDamageable damageable = (IDamageable)targets[i];
                 damageable.ApplyDamage (RollDamage ());
             }
+        }
+
+        public override Ability_Activated GetModified(List<Ability_Modifier> mods)
+        {
+            // Get all mods that work with this type of ability
+            // Also scrub by allowed damage types
+            List<Modifier_ApplyDamage_Amount> castMods =
+                mods.FindAll(m => m is Modifier_ApplyDamage_Amount)
+                .Cast<Modifier_ApplyDamage_Amount>().ToList()
+                .FindAll(m => m.allowedDamageTypes.Contains(damageType));
+
+            Activated_ApplyDamage newAbility = ScriptableObject.Instantiate(this);
+            newAbility.minAmount = ModMath.Result(newAbility.minAmount, castMods);
+            newAbility.maxAmount = ModMath.Result(newAbility.maxAmount, castMods);
+            return newAbility;
         }
 
     }

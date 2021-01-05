@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Modifier_ApplyDamage_Amount_MinorBoostComponentImpact
   m_EditorClassIdentifier: 
   displayName: Minor Boost Component Impact
+  moddingAbilityTypes: 4c040000
   extent: 10
-  allowedGearTypes: 4c040000
-  allowedDamageTypes: 640000006e000000
   modType: 10
   modAmount: 2
+  allowedDamageTypes: 640000006e000000

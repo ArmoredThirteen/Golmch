@@ -9,15 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6468f3457c1a6c4409eb112a2c55d0da, type: 3}
-  m_Name: Activated_ApplyDamage_Stab
+  m_Script: {fileID: 11500000, guid: 1ba9d18d6ad4c4c4f88f9dcf4a4127c0, type: 3}
+  m_Name: Gear_Impactifier_Component
   m_EditorClassIdentifier: 
-  displayName: Stab
-  moddingAbilityTypes: 4c040000
-  targetingType: 10
-  maxTargetDistance: 1
-  areaType: 0
-  manaCost: 0
-  damageType: 110
-  minAmount: 2
-  maxAmount: 5
+  displayName: Impactifier, Component
+  allowedCompartments: 01000000
+  weight: 25
+  slots: 1
+  abilities:
+  - {fileID: 11400000, guid: 434ea50d102a8364db92529d4273abc0, type: 2}

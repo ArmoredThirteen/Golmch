@@ -6,12 +6,18 @@ namespace ATE
 {
     public class EntityGolem : GameEntity, ITargetable, IDamageable
     {
-        public int Health { get; set; }
+        public List<Ability_Activated> activatedAbilities = new List<Ability_Activated> ();
 
-        public bool IsDown
-        {
-            get => this.Health <= 0;
-        }
+        public int MaxHealth { get; private set; }
+        public int Health { get; private set; }
+        public int MaxMana { get; private set; }
+        public int Mana { get; private set; }
+        public int Armor { get; private set; }
+
+        public bool IsDown { get => this.Health <= 0; }
+
+        public float TotalWeight { get; private set; }
+        public float ManaPerMove { get; private set; }
 
 
         public void ApplyDamage(Damage damage)
@@ -19,6 +25,7 @@ namespace ATE
             if (IsDown)
                 return;
 
+            //TODO: Actual damage math with armor and all that
             Health -= Mathf.CeilToInt (damage.amount);
 
             if (IsDown)
@@ -27,13 +34,30 @@ namespace ATE
 
         public void OnDowned()
         {
-
+            Debug.Log("Golem Downed: " + gameObject.name);
         }
 
 
         public void OnTarget()
         {
             throw new System.NotImplementedException ();
+        }
+
+
+        public void ApplyBlueprint(GolemBlueprint blueprint)
+        {
+            //TODO: Mana, health, and maybe armor can be modified by gears
+            MaxHealth = blueprint.StartHealth;
+            Health    = blueprint.StartHealth;
+            MaxMana   = blueprint.StartMana;
+            Mana      = blueprint.StartMana;
+            Armor     = blueprint.armorCount;
+
+            TotalWeight = blueprint.TotalWeight;
+            ManaPerMove = blueprint.ManaPerMove;
+
+            AbilityMap abilityMap = new AbilityMap(blueprint);
+            activatedAbilities = abilityMap.GetModifiedActivatedAbilities();
         }
     }
 }

@@ -18,13 +18,10 @@ namespace ATE
         public List<CompartmentBlueprint> compartments;
 
 
-        public float TotalWeight
-        {
-            get
-            {
-                return FrameWeight + ArmorWeight + GearsWeight;
-            }
-        }
+        public int StartHealth { get => frame.startHealth; }
+        public int StartMana { get => frame.startMana; }
+
+        public float TotalWeight { get => FrameWeight + ArmorWeight + GearsWeight; }
 
         public float FrameWeight
         {

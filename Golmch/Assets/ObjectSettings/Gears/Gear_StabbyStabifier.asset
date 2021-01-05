@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ba9d18d6ad4c4c4f88f9dcf4a4127c0, type: 3}
-  m_Name: Gear_SpellCannon
+  m_Name: Gear_StabbyStabifier
   m_EditorClassIdentifier: 
-  displayName: Spell Cannon
-  allowedCompartments: 0a00000014000000
-  weight: 10
-  slots: 1
+  displayName: Stabby Stabifier
+  allowedCompartments: 140000001e000000
+  weight: 100
+  slots: 2
   abilities:
-  - {fileID: 11400000, guid: 856ad098314d39145b8130f356c89ef3, type: 2}
+  - {fileID: 11400000, guid: 860823e4069cf384f91a09e3d09889e7, type: 2}
+  - {fileID: 11400000, guid: 5425d49c16739794381a0d05aa7e6a68, type: 2}
+  - {fileID: 11400000, guid: 5425d49c16739794381a0d05aa7e6a68, type: 2}
