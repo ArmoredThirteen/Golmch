@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Activated_ApplyDamage_SpellPoke
   m_EditorClassIdentifier: 
   displayName: Spell Poke
+  moddingAbilityTypes: b0040000
   targetingType: 10
   maxTargetDistance: 5
   areaType: 0
+  manaCost: 0
   type: 200
   minAmount: 1
   maxAmount: 3

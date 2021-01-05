@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Activated_ApplyDamage_Stab
   m_EditorClassIdentifier: 
   displayName: Stab
+  moddingAbilityTypes: 4c040000
   targetingType: 10
   maxTargetDistance: 1
   areaType: 0
+  manaCost: 0
   type: 110
   minAmount: 2
   maxAmount: 5

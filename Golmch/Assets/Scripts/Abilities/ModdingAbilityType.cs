@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ATE
 {
-	public enum GearType
+	public enum ModdingAbilityType
 	{
 		None = 0,
         Misc = 1,

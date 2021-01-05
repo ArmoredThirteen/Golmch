@@ -56,10 +56,8 @@ namespace ATE
             TotalWeight = blueprint.TotalWeight;
             ManaPerMove = blueprint.ManaPerMove;
 
-            activatedAbilities.Clear ();
-            //TODO: The rest of the owl's ability list
-            // For each activated ability, apply appropriate modifiers
-            // Then take the finished ability and add that to this list
+            AbilityMap abilityMap = new AbilityMap(blueprint);
+            activatedAbilities = abilityMap.GetModifiedActivatedAbilities();
         }
     }
 }

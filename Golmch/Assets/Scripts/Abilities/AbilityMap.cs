@@ -60,7 +60,7 @@ namespace ATE
         //TODO: This is a bit of a logic abomination with lots of repeat code
         public List<Ability_Activated> GetModifiedActivatedAbilities()
         {
-            List<Ability_Activated> returnVal = new List<Ability_Activated>();
+            List<Ability_Activated> moddedMap = new List<Ability_Activated>();
 
             // Get golem mods
             List<Ability> golemAbilities = GetAbilities_Golem();
@@ -108,13 +108,24 @@ namespace ATE
                         if (activated == null)
                             continue;
 
-                        //TODO: Actually apply the modification
-                        //TODO: And also add to returnVal
+                        List<Ability_Modifier> mods = new List<Ability_Modifier>();
+                        AddMatchingMods(activated, mods, golemMods);
+                        AddMatchingMods(activated, mods, compartmentMods);
+                        AddMatchingMods(activated, mods, gearMods);
+                        
+                        moddedMap.Add(activated.GetModified(mods));
                     }
                 }
             }
             
-            return returnVal;
+            return moddedMap;
+        }
+
+        // Searches modsFrom for any overlapping moddingAbilityTypes with the activated ability
+        // Adds found mods to modsTo
+        public void AddMatchingMods(Ability_Activated activated, List<Ability_Modifier> modsTo, List<Ability_Modifier> modsFrom)
+        {
+            modsTo.AddRange(modsFrom.FindAll(m => activated.HasMatchingModTypes(m)));
         }
 		
 	}
