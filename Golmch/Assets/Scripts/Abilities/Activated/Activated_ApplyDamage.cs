@@ -13,18 +13,6 @@ namespace ATE
         public float maxAmount;
 
 
-        public Activated_ApplyDamage (Activated_ApplyDamage from)
-        {
-            displayName       = from.displayName;
-            targetingType     = from.targetingType;
-            maxTargetDistance = from.maxTargetDistance;
-            areaType  = from.areaType;
-            manaCost  = from.manaCost;
-            type      = from.type;
-            minAmount = from.minAmount;
-            maxAmount = from.maxAmount;
-        }
-
         public Damage RollDamage()
         {
             Damage damage = new Damage (type);
@@ -50,12 +38,14 @@ namespace ATE
 
         public override Ability_Activated GetModified(List<Ability_Modifier> mods)
         {
+            //Debug.Log(mods.Count);
             // Get all appropriate mods and cast them
             List<Modifier_ApplyDamage_Amount> castMods =
                 mods.FindAll(m => m is Modifier_ApplyDamage_Amount)
                 .Cast<Modifier_ApplyDamage_Amount>().ToList();
 
-            Activated_ApplyDamage newAbility = new Activated_ApplyDamage(this);
+            Activated_ApplyDamage newAbility = ScriptableObject.Instantiate(this);
+            //Debug.Log(castMods.Count);
             newAbility.minAmount = ModMath.Result(newAbility.minAmount, castMods);
             newAbility.maxAmount = ModMath.Result(newAbility.maxAmount, castMods);
             return newAbility;

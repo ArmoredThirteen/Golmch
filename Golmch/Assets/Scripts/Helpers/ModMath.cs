@@ -20,14 +20,16 @@ namespace ATE
 
         public static float Result(float value, List<float> addPreMults, List<float> addPostMults, List<float> multAddeds, List<float> multCompounds)
         {
-            return ((value + Summed (addPreMults)) * Summed (multAddeds) * Multiplied (multCompounds)) + Summed (addPostMults);
+            return ((value + Summed (addPreMults, 0)) * Summed (multAddeds, 1) * Multiplied (multCompounds, 1)) + Summed (addPostMults, 0);
         }
 
 
-        public static float Summed(List<float> values)
+        public static float Summed(List<float> values, float defaultValue)
         {
-            float value = 0;
+            float value = defaultValue;
             if (values == null)
+                return value;
+            if (values.Count <= 0)
                 return value;
 
             for (int i = 0; i < values.Count; i++)
@@ -35,10 +37,12 @@ namespace ATE
             return value;
         }
 
-        public static float Multiplied(List<float> values)
+        public static float Multiplied(List<float> values, float defaultValue)
         {
-            float value = 1;
+            float value = defaultValue;
             if (values == null)
+                return value;
+            if (values.Count <= 0)
                 return value;
 
             for (int i = 0; i < values.Count; i++)
